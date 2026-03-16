@@ -1,1 +1,3 @@
-# My-AI-Skills
+# 🚀 我的个人 AI 技能库 (Personal AI Skills)
+
+此仓库用于沉淀我个人的 AI 提示词资产，可直接复制到任何大模型对话框中使用。
