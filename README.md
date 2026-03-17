@@ -25,6 +25,7 @@
 | **web-artifacts-builder** | 用 **React + TypeScript + Vite + Tailwind + shadcn/ui** 做复杂前端产物：init → 开发 → bundle 成单 HTML，便于在对话里以 artifact 展示。 |
 | **webapp-testing** | 用 **Playwright** 测本地 Web 应用：起服、截图、查 DOM、写自动化脚本。提供 with_server 等脚本，支持单/多服务。 |
 | **xlsx** | **Excel/表格**：用 pandas 分析、openpyxl 做公式与格式，脚本重算公式并查错。含金融模型配色与数字格式规范。 |
+| **prompt-creator** | **初始 Prompt 生成**：把模糊的角色定位（如"资深数据分析师"）转化为结构完整的初始 prompt，涵盖角色定位、任务目标、用户背景、行为规范四个维度。信息不足时主动追问，输出可直接复制使用的纯文本 prompt。 |
 
 ---
 
@@ -103,7 +104,8 @@ My-AI-Skills/
     ├── theme-factory/
     ├── web-artifacts-builder/
     ├── webapp-testing/
-    └── xlsx/
+    ├── xlsx/
+    └── prompt-creator/
 ```
 
 每个子目录内以对应技能的 `SKILL.md` 为主入口，详细用法见各技能目录内文档。
