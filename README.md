@@ -15,17 +15,18 @@
 | [**claude-api**](https://github.com/kennysli1/My-AI-Skills/blob/main/skills/claude-api/SKILL.md) | 使用 **Claude API / Anthropic SDK** 开发应用：单次调用、流式、Tool Use、Agent SDK、多语言 (Python/TS/Java/Go 等)。触发：代码里用 `anthropic` 或用户提到 Claude API。 |
 | [**doc-coauthoring**](https://github.com/kennysli1/My-AI-Skills/blob/main/skills/doc-coauthoring/SKILL.md) | **文档共创流程**：上下文收集 → 逐段精修与结构 → 用「读者测试」验证可读性。适合：技术文档、提案、PRD、决策文档、RFC。 |
 | [**docx**](https://github.com/kennysli1/My-AI-Skills/blob/main/skills/docx/SKILL.md) | **Word 文档**：用 docx-js 新建 .docx，或 unpack → 改 XML → pack 编辑已有文档。支持样式、表格、图片、目录、修订与批注。 |
+| [**frontend-design**](https://github.com/kennysli1/My-AI-Skills/blob/main/skills/frontend-design/SKILL.md) | 创建独特的**生产级前端界面**：拒绝千篇一律的 AI 风格，强调大胆的美学方向（极简/极繁/复古未来/有机自然等）、独特字体选择、精致动效与空间构图。适合：网页组件、落地页、仪表盘、React 组件、HTML/CSS 布局。 |
 | [**internal-comms**](https://github.com/kennysli1/My-AI-Skills/blob/main/skills/internal-comms/SKILL.md) | **内部沟通写作**：3P 更新、周报、FAQ、事故报告、项目更新等，按公司格式与范例 (examples/) 撰写。 |
 | [**mcp-builder**](https://github.com/kennysli1/My-AI-Skills/blob/main/skills/mcp-builder/SKILL.md) | 开发 **MCP (Model Context Protocol) 服务器**：工具设计、TypeScript/Python 实现、测试与评估。适合：把外部 API/服务接入 LLM。 |
 | [**pdf**](https://github.com/kennysli1/My-AI-Skills/blob/main/skills/pdf/SKILL.md) | **PDF 处理**：读取/提取文字表格、合并/拆分、旋转、水印、新建 PDF、填表、加解密、OCR。用 pypdf、pdfplumber、reportlab 等。 |
 | [**pptx**](https://github.com/kennysli1/My-AI-Skills/blob/main/skills/pptx/SKILL.md) | **PPT 幻灯片**：用 markitdown 读内容、thumbnail 看版式；编辑用 unpack→改→pack；从零做用 pptxgenjs。含设计建议与 QA 流程。 |
+| [**prompt-creator**](https://github.com/kennysli1/My-AI-Skills/blob/main/skills/prompt-creator/SKILL.md) | **初始 Prompt 生成**：把模糊的角色定位（如"资深数据分析师"）转化为结构完整的初始 prompt，涵盖角色定位、任务目标、用户背景、行为规范四个维度。信息不足时主动追问，输出可直接复制使用的纯文本 prompt。 |
 | [**skill-creator**](https://github.com/kennysli1/My-AI-Skills/blob/main/skills/skill-creator/SKILL.md) | **创建与优化 Skill**：从意图到 SKILL.md 草稿、写测试用例、跑评测、根据反馈迭代、可选描述优化与打包。适合：做新 skill 或改进现有 skill。 |
 | [**slack-gif-creator**](https://github.com/kennysli1/My-AI-Skills/blob/main/skills/slack-gif-creator/SKILL.md) | 做 **Slack 用动图**：尺寸/帧率/颜色约束、GIFBuilder、校验、缓动与帧辅助。用 PIL 画图，支持抖动/脉冲/旋转/粒子等动画思路。 |
 | [**theme-factory**](https://github.com/kennysli1/My-AI-Skills/blob/main/skills/theme-factory/SKILL.md) | 为幻灯片/文档/落地页等**套用主题**：10 套预设主题（颜色+字体），或按需求生成新主题，再应用到已有产物。 |
 | [**web-artifacts-builder**](https://github.com/kennysli1/My-AI-Skills/blob/main/skills/web-artifacts-builder/SKILL.md) | 用 **React + TypeScript + Vite + Tailwind + shadcn/ui** 做复杂前端产物：init → 开发 → bundle 成单 HTML，便于在对话里以 artifact 展示。 |
 | [**webapp-testing**](https://github.com/kennysli1/My-AI-Skills/blob/main/skills/webapp-testing/SKILL.md) | 用 **Playwright** 测本地 Web 应用：起服、截图、查 DOM、写自动化脚本。提供 with_server 等脚本，支持单/多服务。 |
 | [**xlsx**](https://github.com/kennysli1/My-AI-Skills/blob/main/skills/xlsx/SKILL.md) | **Excel/表格**：用 pandas 分析、openpyxl 做公式与格式，脚本重算公式并查错。含金融模型配色与数字格式规范。 |
-| [**prompt-creator**](https://github.com/kennysli1/My-AI-Skills/blob/main/skills/prompt-creator/SKILL.md) | **初始 Prompt 生成**：把模糊的角色定位（如"资深数据分析师"）转化为结构完整的初始 prompt，涵盖角色定位、任务目标、用户背景、行为规范四个维度。信息不足时主动追问，输出可直接复制使用的纯文本 prompt。 |
 
 ---
 
@@ -95,6 +96,7 @@ My-AI-Skills/
     ├── claude-api/            # Claude API 开发
     ├── doc-coauthoring/       # 文档共创
     ├── docx/                  # Word 文档
+    ├── frontend-design/       # 前端界面设计
     ├── internal-comms/        # 内部沟通
     ├── mcp-builder/           # MCP 服务器
     ├── pdf/                   # PDF 处理
