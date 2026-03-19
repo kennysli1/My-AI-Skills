@@ -1,0 +1,35 @@
+{
+  "skill_name": "prompt-creator",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "我想开一个新对话，需要一个开场 prompt。我是做 B 端 SaaS 的产品经理，想让 AI 扮演资深产品经理，帮我从 0 到 1 梳理一个内部效率工具的需求文档，输出要能直接给研发看。我团队没有专职设计师，所以希望 AI 在写需求时顺带考虑简单的交互说明。",
+      "expected_output": "一段可直接复制的完整开场 prompt，包含：角色定位（资深 B 端/内部工具向产品经理）、任务目标（从 0 到 1 梳理需求并产出给研发看的文档）、用户背景（产品经理、无专职设计）、行为规范（输出格式、交互说明要求等）。使用加粗块格式，无多余解释。",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "帮我写一个 prompt，我要和 AI 聊游戏数值，我是数值策划，做卡牌手游的，希望它懂经济系统和养成线，能一起推公式、做表。回复要简洁，直接给结论和公式，别啰嗦。",
+      "expected_output": "一段可直接复制的开场 prompt，包含：角色（懂卡牌手游经济与养成线的数值向 AI）、任务（推公式、做表、协作设计）、用户背景（数值策划）、行为规范（简洁、给结论和公式、少废话）。使用加粗块格式。",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I need an opening prompt for a new chat. I want the AI to act as a senior data analyst who can help me analyze our app's retention and funnel. I have CSV exports from our analytics tool. Prefer short answers and bullet points, and ask me if something is unclear instead of assuming.",
+      "expected_output": "A copy-paste ready opening prompt in English (or as user prefers), with: role (senior data analyst, app retention/funnel), task (analyze data from CSV exports), user context (has CSVs from analytics tool), behavior (short answers, bullets, ask when unclear). Bold-block format, no extra commentary.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "我想有个对话是「资深游戏开发」那种，能带我从零做微信小游戏到上线，我完全没做过游戏也不会编程，就靠对话一步步来。",
+      "expected_output": "一段可直接复制的开场 prompt，包含：角色（资深微信小游戏开发、能带零基础）、任务（从零到上线全流程）、用户背景（无游戏与编程经验、纯对话驱动）。行为规范中应有：易懂中文、每步可执行、主动追问不假设等。可略追问具体游戏类型再写，或给出通用版并提示使用时补充类型。",
+      "files": []
+    },
+    {
+      "id": 5,
+      "prompt": "我们对话聊到一半感觉方向有点乱，我想重新定一下：让 AI 就只当「技术面试官」，只问后端和系统设计题，不要写代码，只口述思路。帮我重新写一个开场 prompt 用来开新对话。",
+      "expected_output": "一段可直接复制的开场 prompt，角色为技术面试官（后端与系统设计），任务为只提问、不写代码、口述思路；行为规范中明确不写代码、仅口述。用于新对话的「重新定向」场景。",
+      "files": []
+    }
+  ]
+}

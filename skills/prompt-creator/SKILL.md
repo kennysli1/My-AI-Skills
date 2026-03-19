@@ -1,6 +1,6 @@
 ---
 name: prompt-creator
-description: "Create and refine high-quality initial prompts for new conversations. TRIGGER when: the user wants to start a new conversation with an AI and needs help crafting the opening prompt, mentions a role like '资深数据分析师' or 'senior game designer', wants to define an AI's persona or purpose, says things like '帮我写一个prompt', 'prompt怎么写', 'how should I prompt', or has a vague goal and needs it turned into a clear instruction. Also trigger when mid-conversation the user seems lost about direction and wants to re-clarify the AI's role or task scope. DO NOT TRIGGER for general writing tasks, code generation, or when the user is already mid-task and not asking about prompts."
+description: "Create and refine high-quality initial prompts for new conversations. TRIGGER when: the user wants to start a new conversation with an AI and needs help crafting the opening prompt, mentions a role like '资深数据分析师' or 'senior game designer', wants to define an AI's persona or purpose, says things like '帮我写一个prompt', 'prompt怎么写', 'how should I prompt', or has a vague goal and needs it turned into a clear instruction. Also trigger when the user describes a role or goal vaguely and could benefit from a structured opening prompt, even if they don't say 'prompt' explicitly. Trigger when mid-conversation the user seems lost about direction and wants to re-clarify the AI's role or task scope. DO NOT TRIGGER for general writing tasks, code generation, or when the user is already mid-task and not asking about prompts."
 ---
 
 # Prompt Creator
@@ -47,7 +47,7 @@ description: "Create and refine high-quality initial prompts for new conversatio
 
 ### Step 3：生成 prompt
 
-按以下结构组合 prompt，**只保留对当前场景有意义的部分**，不要机械套用所有模块。
+按以下结构组合 prompt，**只保留对当前场景有意义的部分**，不要机械套用所有模块。若用户未提供或无法推断出某块信息（例如从未提及自己的背景），则**省略对应模块**（如整段不写「用户背景」），不要输出空段落或占位符。
 
 输出格式使用加粗文字而非 Markdown 标题（避免在对话窗口中被折叠渲染）：
 
@@ -72,7 +72,7 @@ description: "Create and refine high-quality initial prompts for new conversatio
 
 直接输出可以复制使用的完整 prompt 文本，不加多余解释。
 
-如果用户对结果有调整意见，根据反馈修改并重新输出。
+如果用户对结果有调整意见（例如改语气、长度、语言或结构），根据反馈修改并重新输出，保持四块结构（角色/任务/用户背景/行为规范）中已有的部分一致。
 
 ---
 

@@ -1,0 +1,17 @@
+[
+  {"query": "帮我写一个 prompt，我要在新对话里让 AI 当资深数据分析师，帮我分析我们产品的用户留存。", "should_trigger": true},
+  {"query": "我想开一个和「资深游戏策划」的对话，专门聊技能树和数值设计，回复要简洁直接。", "should_trigger": true},
+  {"query": "how should I prompt an AI to act as a product manager for writing PRDs? I need a good opening message.", "should_trigger": true},
+  {"query": "我有个模糊想法，想和 AI 聊但不知道咋开头，你能帮我把目标整理成一段开场白吗？", "should_trigger": true},
+  {"query": "希望新对话里 AI 是微信小游戏开发专家，带我这种零基础的人从零做到上线。", "should_trigger": true},
+  {"query": "对话跑偏了，我想重新定个调：让 AI 只当技术面试官问系统设计，不写代码。帮我写一段新的开场。", "should_trigger": true},
+  {"query": "需要一个开场 prompt，角色是 B 端产品经理，任务是一起从 0 到 1 写内部工具的需求文档，给研发看。", "should_trigger": true},
+  {"query": "把这段需求文档改成更正式一点的写法，加上章节编号。", "should_trigger": false},
+  {"query": "用 Python 写一个脚本，读取当前目录下所有 CSV 并合并成一个。", "should_trigger": false},
+  {"query": "帮我检查一下这份 PRD 有没有逻辑漏洞，标出来并给修改建议。", "should_trigger": false},
+  {"query": "我想让 AI 帮我分析数据，但还没想好具体分析啥，先随便聊聊。", "should_trigger": true},
+  {"query": "你刚才生成的那段 prompt 能不能把「用中文」那句改到最前面？", "should_trigger": true},
+  {"query": "Summarize the key points from this PDF and output a one-page memo.", "should_trigger": false},
+  {"query": "prompt 怎么写才能让模型别瞎编数据？", "should_trigger": true},
+  {"query": "给我们的客服团队写一封内部邮件，说明新工单系统的上线时间和培训安排。", "should_trigger": false}
+]
