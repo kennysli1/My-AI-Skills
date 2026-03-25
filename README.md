@@ -9,9 +9,8 @@
 
 | 技能目录 | 功能简介 |
 |----------|----------|
-| [**agent-builder**](https://github.com/kennysli1/My-AI-Skills/blob/main/skills/agent-builder/SKILL.md) | **规范驱动构建 AI Agent**：采用 speckit 式 0→1 流程，需求收集→生成 `DEV_SPEC.md`（7 章结构，与 auto-coder 兼容）→架构审查→逐模块构建→交付。先写规范再写代码，支持确认 spec 后交给 auto-coder 自动开发，后续扩展支持 openspec 式增量修改。 |
+| [**agent-builder**](https://github.com/kennysli1/My-AI-Skills/blob/main/skills/agent-builder/SKILL.md) | **规范驱动构建 AI Agent**：使用 **speckit**（0→1）完成 constitution→spec→plan→tasks→implement 全流程，使用 **openspec**（1→N）进行后续功能扩展。需求收集→speckit 规范生成→架构审查→自动/引导开发→交付并初始化 openspec 扩展基线。 |
 | [**algorithmic-art**](https://github.com/kennysli1/My-AI-Skills/blob/main/skills/algorithmic-art/SKILL.md) | 用 **p5.js** 做算法艺术：种子随机、粒子/流场、参数可调。先写「算法哲学」(.md)，再实现为可交互 HTML。适合：生成艺术、粒子系统、流场、代码艺术。 |
-| [**auto-coder**](https://github.com/kennysli1/My-AI-Skills/blob/main/skills/auto-coder/SKILL.md) | **自动化规格驱动开发**：同步 DEV_SPEC.md → 找到下一个待办任务 → 编码 → 测试（最多 3 轮自动修复）→ 原子提交。适合：一键自动开发、spec-to-code 全自动流程。 |
 | [**brand-guidelines**](https://github.com/kennysli1/My-AI-Skills/blob/main/skills/brand-guidelines/SKILL.md) | 为任意产物应用 **Anthropic 官方品牌**：主色/强调色、Poppins+Lora 字体、标题与正文样式。适合：需要品牌一致性的文档、幻灯片、页面。 |
 | [**canvas-design**](https://github.com/kennysli1/My-AI-Skills/blob/main/skills/canvas-design/SKILL.md) | 用设计哲学做**静态视觉设计**：先写视觉哲学 (.md)，再在画布上产出 .png/.pdf。适合：海报、艺术图、品牌视觉，强调工艺感与极简文字。 |
 | [**claude-api**](https://github.com/kennysli1/My-AI-Skills/blob/main/skills/claude-api/SKILL.md) | 使用 **Claude API / Anthropic SDK** 开发应用：单次调用、流式、Tool Use、Agent SDK、多语言 (Python/TS/Java/Go 等)。触发：代码里用 `anthropic` 或用户提到 Claude API。 |
@@ -95,7 +94,6 @@ My-AI-Skills/
 └── skills/
     ├── agent-builder/         # AI Agent 构建
     ├── algorithmic-art/       # 算法艺术
-    ├── auto-coder/            # 自动化开发
     ├── brand-guidelines/      # 品牌规范
     ├── canvas-design/         # 静态视觉设计
     ├── claude-api/            # Claude API 开发
