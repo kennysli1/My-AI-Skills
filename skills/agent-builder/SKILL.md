@@ -54,11 +54,54 @@ Load these on demand (not all at once):
 ## Workflow: 5 Stages
 
 ```
-Discovery → Speckit Setup → Specification & Planning → Build → Polish
-  (需求)     (初始化项目)     (规范+方案+任务)       (开发)   (交付)
+Preflight → Discovery → Speckit Setup → Specification & Planning → Build → Polish
+ (环境检查)   (需求)     (初始化项目)     (规范+方案+任务)        (开发)   (交付)
 ```
 
 **阶段门控规则**：每个阶段结束必须用户确认后才能进入下一阶段。不可跳过。
+
+---
+
+### Stage 0: Preflight (环境前置检查)
+
+Goal: Verify all required CLI tools are installed and functional before starting any work.
+
+**在与用户交互之前，静默执行以下检查**（不需要用户操作）：
+
+```bash
+# 1. Check speckit (specify CLI)
+specify --version
+
+# 2. Check openspec
+openspec --version
+```
+
+**结果处理**：
+
+- ✅ 两个工具都可用 → 显示简短确认，进入 Stage 1：
+  ```
+  ✅ 环境检查通过：specify vX.X.X / openspec vX.X.X — 开始需求收集
+  ```
+
+- ❌ `specify` 不可用 → **阻断，不继续**。告知用户：
+  ```
+  ❌ 未检测到 specify CLI，本 skill 依赖 speckit 进行规范驱动开发。
+
+  安装命令：
+    uv tool install specify-cli --from git+https://github.com/github/spec-kit.git
+
+  安装后重新启动即可。
+  ```
+
+- ❌ `openspec` 不可用 → **警告但不阻断**（仅 Stage 5 扩展用）。告知用户：
+  ```
+  ⚠️ 未检测到 openspec CLI，项目交付后的扩展功能（1→N）将不可用。
+
+  安装命令：
+    npm install -g @fission-ai/openspec@latest
+
+  可以先继续，后续需要时再安装。
+  ```
 
 ---
 
@@ -294,6 +337,8 @@ Generate all supporting files:
 - `.gitignore` — Standard ignores for the language
 
 **Step 3: Initialize openspec for future expansion**
+
+> Skip this step if openspec was marked unavailable in Stage 0 Preflight. Inform user that expansion workflow can be set up later after installing openspec.
 
 Run in the project directory:
 ```bash
