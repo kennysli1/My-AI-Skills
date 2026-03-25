@@ -1,11 +1,12 @@
+---
+name: agent-builder
+description: Build complete, runnable AI agent applications from scratch through spec-driven guided conversation. Use this skill whenever the user wants to build an agent, create an AI assistant, develop a chatbot, make an LLM-powered tool, or scaffold any autonomous AI application — whether CLI, web GUI, API, or hybrid. Also trigger when the user mentions "agent builder", "build agent", "create agent", "造个agent", "搭建agent", "构建agent", "做一个agent", "开发智能体", "做个AI助手", "LLM application", or describes wanting to build something that uses an LLM to call tools, manage conversations, or orchestrate multi-step workflows. Even if the user doesn't say "agent" explicitly, use this skill if the described project clearly involves an LLM loop with tool calling.
+---
+
 # Agent Builder Skill
 
 Build complete, runnable AI agent applications from scratch through guided conversation.
 Uses **speckit** (0→1) for initial specification-driven development and **openspec** (1→N) for iterative feature expansion.
-
-## Trigger
-
-Activate when user says: "build an agent", "create an agent", "agent builder", "build agent", "造个agent", "搭建agent", "构建agent", "做一个agent".
 
 ## Interaction Language
 
