@@ -9,6 +9,7 @@
 
 | 技能目录 | 功能简介 |
 |----------|----------|
+| [**agent-builder**](https://github.com/kennysli1/My-AI-Skills/blob/main/skills/agent-builder/SKILL.md) | **从零构建 AI Agent 应用**：通过引导式对话完成需求收集→架构设计→逐模块构建→测试交付全流程。支持 CLI/GUI/API 多种形态，Python/TypeScript 语言，Claude/OpenAI 等 LLM 后端。 |
 | [**algorithmic-art**](https://github.com/kennysli1/My-AI-Skills/blob/main/skills/algorithmic-art/SKILL.md) | 用 **p5.js** 做算法艺术：种子随机、粒子/流场、参数可调。先写「算法哲学」(.md)，再实现为可交互 HTML。适合：生成艺术、粒子系统、流场、代码艺术。 |
 | [**auto-coder**](https://github.com/kennysli1/My-AI-Skills/blob/main/skills/auto-coder/SKILL.md) | **自动化规格驱动开发**：同步 DEV_SPEC.md → 找到下一个待办任务 → 编码 → 测试（最多 3 轮自动修复）→ 原子提交。适合：一键自动开发、spec-to-code 全自动流程。 |
 | [**brand-guidelines**](https://github.com/kennysli1/My-AI-Skills/blob/main/skills/brand-guidelines/SKILL.md) | 为任意产物应用 **Anthropic 官方品牌**：主色/强调色、Poppins+Lora 字体、标题与正文样式。适合：需要品牌一致性的文档、幻灯片、页面。 |
@@ -92,6 +93,7 @@ license: 可选
 My-AI-Skills/
 ├── README.md           # 本文件：技能说明 + 扩展指南
 └── skills/
+    ├── agent-builder/         # AI Agent 构建
     ├── algorithmic-art/       # 算法艺术
     ├── auto-coder/            # 自动化开发
     ├── brand-guidelines/      # 品牌规范
