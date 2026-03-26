@@ -6,7 +6,7 @@ description: Build complete, runnable AI agent applications from scratch through
 # Agent Builder Skill
 
 Build complete, runnable AI agent applications from scratch through guided conversation.
-Uses **speckit** (0→1) for initial specification-driven development and **openspec** (1→N) for iterative feature expansion.
+Uses **DEV_SPEC.md** for specification-driven development and **auto-coder** for automated implementation.
 
 ## Interaction Language
 
@@ -28,81 +28,42 @@ Load these on demand (not all at once):
 
 > **核心理念：先写规范，再写代码。规范即合同，代码是履约。**
 
-本 skill 采用业界成熟的规范驱动工具链：
+本 skill 采用 **DEV_SPEC.md + auto-coder** 的开发模式：
 
-- **speckit** (`specify` CLI + `/speckit.*` slash commands)：0→1 新建项目，严格的阶段门控流程
-  - constitution → specify → plan → tasks → implement
-  - 确保需求、规范、技术方案、任务拆解每一步都经过确认
-- **openspec** (`openspec` CLI + `/opsx:*` slash commands)：1→N 功能扩展，轻量增量循环
-  - propose → apply → archive
-  - 不干扰已有规范，通过 delta spec 增量修改
+1. **DEV_SPEC.md**：项目规范文档，包含项目的所有设计决策和技术细节
+2. **auto-coder**：自动化开发代理，读取 DEV_SPEC.md 并按任务排期逐个实现
 
-### 工具链分工
+### 工作流分工
 
-| 阶段 | 工具 | 命令 | 产出 |
-|------|------|------|------|
-| 项目初建 | **speckit** | `specify init` → `/speckit.constitution` → `/speckit.specify` → `/speckit.plan` → `/speckit.tasks` → `/speckit.implement` | `.specify/` 目录：constitution, spec.md, plan.md, tasks.md, 以及生成的代码 |
-| 功能扩展 | **openspec** | `openspec init` → `/opsx:propose` → `/opsx:apply` → `/opsx:archive` | `openspec/` 目录：specs/, changes/, archive/ |
+| 阶段 | 工具 | 产出 |
+|------|------|------|
+| 需求收集与规范编写 | **agent-builder** (本 skill) | `DEV_SPEC.md` — 完整项目规范 |
+| 自动化开发 | **auto-coder** skill | 代码、测试、提交 |
 
-### 前置条件
+### DEV_SPEC.md 标准章节
 
-本 skill 依赖以下 CLI 工具（须已安装）：
-- `specify` — speckit CLI（`uv tool install specify-cli --from git+https://github.com/github/spec-kit.git`）
-- `openspec` — openspec CLI（`npm install -g @fission-ai/openspec@latest`）
+DEV_SPEC.md 必须包含以下 7 个章节（auto-coder 依赖此结构）：
+
+| 章节 | 标题格式 | 内容 |
+|------|----------|------|
+| 1 | `## 1. 项目概述` | 项目名称、一句话描述、目标用户、设计理念 |
+| 2 | `## 2. 核心特点` | 功能特性列表、每个特性的详细说明 |
+| 3 | `## 3. 技术选型` | 语言、框架、LLM 后端、依赖库及版本、选型理由 |
+| 4 | `## 4. 测试方案` | 测试策略、覆盖率要求、测试工具、Mock 策略 |
+| 5 | `## 5. 系统架构与模块设计` | 架构图、模块职责、接口定义、数据流 |
+| 6 | `## 6. 项目排期` | 任务拆解（含 ID）、依赖关系、状态标记 `[ ]`/`[x]` |
+| 7 | `## 7. 可扩展性与未来展望` | 扩展点、未来功能规划、技术演进方向 |
 
 ---
 
 ## Workflow: 5 Stages
 
 ```
-Preflight → Discovery → Speckit Setup → Specification & Planning → Build → Polish
- (环境检查)   (需求)     (初始化项目)     (规范+方案+任务)        (开发)   (交付)
+Discovery → Spec Drafting → Spec Review → Build → Polish
+ (需求收集)   (规范编写)     (规范确认)   (开发)   (交付)
 ```
 
 **阶段门控规则**：每个阶段结束必须用户确认后才能进入下一阶段。不可跳过。
-
----
-
-### Stage 0: Preflight (环境前置检查)
-
-Goal: Verify all required CLI tools are installed and functional before starting any work.
-
-**在与用户交互之前，静默执行以下检查**（不需要用户操作）：
-
-```bash
-# 1. Check speckit (specify CLI)
-specify --version
-
-# 2. Check openspec
-openspec --version
-```
-
-**结果处理**：
-
-- ✅ 两个工具都可用 → 显示简短确认，进入 Stage 1：
-  ```
-  ✅ 环境检查通过：specify vX.X.X / openspec vX.X.X — 开始需求收集
-  ```
-
-- ❌ `specify` 不可用 → **阻断，不继续**。告知用户：
-  ```
-  ❌ 未检测到 specify CLI，本 skill 依赖 speckit 进行规范驱动开发。
-
-  安装命令：
-    uv tool install specify-cli --from git+https://github.com/github/spec-kit.git
-
-  安装后重新启动即可。
-  ```
-
-- ❌ `openspec` 不可用 → **警告但不阻断**（仅 Stage 5 扩展用）。告知用户：
-  ```
-  ⚠️ 未检测到 openspec CLI，项目交付后的扩展功能（1→N）将不可用。
-
-  安装命令：
-    npm install -g @fission-ai/openspec@latest
-
-  可以先继续，后续需要时再安装。
-  ```
 
 ---
 
@@ -158,169 +119,148 @@ Ask: "确认以上需求？(Y/修改项)" — proceed only on confirmation.
 
 ---
 
-### Stage 2: Speckit Setup (项目初始化)
+### Stage 2: Spec Drafting (规范编写)
 
-Goal: Initialize the project with speckit and establish the project constitution.
+Goal: Generate a complete DEV_SPEC.md based on the confirmed requirements and Agent domain knowledge.
 
-**Step 1: Initialize speckit project**
+Before drafting, read the following references for Agent-specific context:
+- `references/agent-architecture.md` — for layer design and directory structure
+- `references/delivery-patterns.md` — for the chosen delivery pattern
+- `references/interface-spec.md` — for tool interface standards
 
-In the project directory, run:
-```bash
-specify init <agent-name>
-```
+#### 2a: Write DEV_SPEC.md
 
-This creates the `.specify/` directory with templates, scripts, and memory.
+Create `DEV_SPEC.md` in the project root with all 7 chapters:
 
-**Step 2: Create project constitution**
+**Chapter 1 — 项目概述**:
+- 项目名称、一句话定位
+- 目标用户与使用场景
+- 设计理念（Agent 特有：工具编排、对话管理、错误恢复）
 
-Guide the user through `/speckit.constitution`:
-- Feed the constitution command with the project principles derived from Stage 1 (tech stack, naming conventions, coding standards, testing requirements)
-- Include Agent-specific principles:
-  - Error handling pattern: "Failed to X: Y. Try Z."
-  - Tool design: one tool = one job, stateless, input validation
-  - Config-driven: all tunable params in YAML, no hardcoded values
-  - LLM interaction: retry with backoff, timeout enforcement, clear error messages
+**Chapter 2 — 核心特点**:
+- Agent 核心循环（prompt → LLM → tool_use or text → repeat）
+- 每个工具/能力的功能描述
+- 内存/会话管理策略
+- 系统提示词设计方向
 
-**Step 3: Verify setup**
+**Chapter 3 — 技术选型**:
+- 语言、框架、LLM SDK
+- 依赖库清单及版本
+- 选型理由（为什么选 X 而不选 Y）
 
-Run `specify check` to verify all required tools are installed.
+**Chapter 4 — 测试方案**:
+- 单元测试：每个模块独立测试，Mock 外部依赖
+- 集成测试：模块间协作
+- E2E 测试：端到端冒烟测试（Mock LLM）
+- 测试工具与覆盖率目标
 
-Present summary:
+**Chapter 5 — 系统架构与模块设计**:
+- 架构分层：Config → LLM Client → Memory → Tool Registry → Agent Loop → Interface
+- 目录结构（参考 `references/agent-architecture.md`）
+- 模块职责与接口定义
+- 数据流与调用关系
+
+**Chapter 6 — 项目排期**:
+- 按依赖关系排序的任务列表
+- 每个任务包含：ID、标题、描述、预期产出文件
+- 使用 `[ ]` 标记未完成，`[x]` 标记已完成
+- 任务顺序遵循自底向上构建：
+  1. Setup — 项目初始化、配置、依赖
+  2. LLM Client — API 封装、重试/超时
+  3. Memory — 会话存储
+  4. Tool Registry + Tools — 注册、路由、各工具实现
+  5. Agent Loop — 主循环编排
+  6. Interface — CLI/GUI/API
+  7. System Prompt — 提示词工程
+  8. Integration — 串联所有模块
+  9. Polish — 测试、文档、脚本
+
+**Chapter 7 — 可扩展性与未来展望**:
+- 可扩展点：新工具接入、新 LLM 后端、新交付形态
+- 未来功能规划
+- 技术演进方向
+
+---
+
+### Stage 3: Spec Review (规范确认)
+
+Goal: Walk the user through DEV_SPEC.md, get confirmation on each major section.
+
+Present the spec in digestible sections:
+
+1. **Architecture overview** — 展示架构图（ASCII）和数据流
+2. **Module breakdown** — 展示模块依赖关系
+3. **Task schedule** — 展示任务列表和预估工作量
+4. **Key technical decisions** — 列出重要的技术选择及理由
+
+For each section, ask: "这部分确认？(Y/修改项)"
+
+After all sections confirmed:
 ```
 ╔══════════════════════════════════════════╗
-║        📁 Speckit 项目已初始化           ║
+║        📋 DEV_SPEC.md 规范已确认         ║
 ╠══════════════════════════════════════════╣
-║  项目目录：<path>                        ║
-║  .specify/ 结构已创建                    ║
-║  Constitution 已建立                     ║
+║  文件位置：<path>/DEV_SPEC.md            ║
+║  章节数量：7                             ║
+║  任务总数：<N> 个                        ║
 ║                                          ║
-║  下一步：进入规范编写                     ║
+║  下一步：选择开发方式                     ║
 ╚══════════════════════════════════════════╝
 ```
 
----
+#### Handoff Decision (开发路径选择)
 
-### Stage 3: Specification & Planning (规范 + 方案 + 任务)
-
-Goal: Use speckit's full pipeline to produce spec → plan → tasks, with Agent domain knowledge injected at each step.
-
-> **Why speckit handles this better than hand-writing:**
-> - Strict phase gates prevent skipping steps
-> - Built-in quality checklist auto-validates each spec
-> - Clarification loop ensures no ambiguity before planning
-> - Tasks are dependency-ordered and ready for implementation
-
-#### Step 3a: Feature Specification (`/speckit.specify`)
-
-Feed the speckit specify command with the feature description from the Requirement Card (Stage 1).
-
-Before speckit generates the spec, read `references/agent-architecture.md` to provide Agent-specific context. Ensure the generated spec covers:
-- Agent's core loop (prompt → LLM → tool_use or text → repeat)
-- Tool definitions (name, description, input schema, handler)
-- Memory strategy (JSON file, load/save per turn, atomic writes)
-- Interface pattern (CLI/GUI/API from Stage 1)
-- System prompt design (role + capabilities + constraints + output format)
-
-After speckit generates `spec.md`, review with user. Use `/speckit.clarify` if any [NEEDS CLARIFICATION] markers remain.
-
-Ask: "功能规范确认？(Y/修改项)"
-
-#### Step 3b: Technical Plan (`/speckit.plan`)
-
-Run `/speckit.plan`. Before it executes, read:
-- `references/agent-architecture.md` — for layer design and directory structure
-- `references/delivery-patterns.md` — for the chosen delivery pattern (CLI/GUI/Hybrid)
-- `references/interface-spec.md` — for tool interface standards
-
-Ensure the plan covers:
-- Architecture layers (Config → LLM Client → Memory → Tool Registry → Agent Loop → Interface)
-- Directory structure per `references/agent-architecture.md`
-- Data model for memory/session storage
-- API contracts for tool interfaces per `references/interface-spec.md`
-
-After speckit generates `plan.md`, `research.md`, `data-model.md`, present the architecture to user:
-
-1. **Architecture diagram** (ASCII) showing data flow
-2. **Module dependency graph**
-3. **Key technical decisions** with rationale
-
-Ask: "技术方案确认？(Y/修改项)"
-
-#### Step 3c: Task Breakdown (`/speckit.tasks`)
-
-Run `/speckit.tasks` to generate the implementation task list.
-
-Ensure tasks follow the Agent build order (bottom-up by dependency):
-1. Setup — project init, config, dependencies
-2. LLM Client — API wrapper with retry/timeout
-3. Memory — JSON session storage
-4. Tool Registry + Tools — registration, routing, individual tools
-5. Agent Loop — main orchestration
-6. Interface — CLI/GUI/API
-7. System Prompt — prompt engineering
-8. Integration — wire everything together
-9. Polish — tests, docs, scripts
-
-After speckit generates `tasks.md`, present the task overview to user.
-
-Ask: "任务拆解确认？(Y/修改项)"
-
----
-
-### Stage 3.5: Handoff Decision (交付路径选择)
-
-After spec, plan, and tasks are all confirmed, ask user:
-
+Ask user:
 ```
 开发方式选择：
-1. 🤖 speckit 自动实现 — /speckit.implement 按 tasks.md 自动编码
+1. 🤖 auto-coder 自动开发 — 按 DEV_SPEC.md 排期自动编码、测试、提交
 2. 🔨 本 skill 引导构建 — 我来逐模块引导开发，每步确认
-3. 📋 仅交付规范 — 到此为止，只要 spec + plan + tasks
+3. 📋 仅交付规范 — 到此为止，只要 DEV_SPEC.md
 
 选哪个？(1/2/3)
 ```
 
-- **Option 1**: Run `/speckit.implement`. It will read tasks.md, execute phase by phase, write tests, implement code, mark tasks `[X]`. Agent-builder monitors and provides Agent domain guidance when needed.
-- **Option 2**: Continue to Stage 4 (manual guided build).
-- **Option 3**: Done. The `.specify/` directory is the deliverable.
+- **Option 1**: 告知用户使用 `auto code` 或 `/auto-coder` 触发 auto-coder skill，它会自动读取 DEV_SPEC.md 并按排期开发
+- **Option 2**: Continue to Stage 4 (manual guided build)
+- **Option 3**: Done. DEV_SPEC.md is the deliverable.
 
 ---
 
 ### Stage 4: Build (逐模块构建)
 
-Goal: Implement the agent module by module, **strictly following the speckit-generated plan and tasks**.
+Goal: Implement the agent module by module, **strictly following DEV_SPEC.md**.
 
-> **Core rule**: Every coding decision must trace back to spec.md or plan.md. If something isn't in the spec, don't implement it — update the spec first.
+> **Core rule**: Every coding decision must trace back to DEV_SPEC.md. If something isn't in the spec, don't implement it — update the spec first.
 
-**Build order**: Follow the task sequence from `tasks.md`.
+**Build order**: Follow the task sequence from Chapter 6.
 
 For each task:
 
-1. **Read relevant speckit artifacts** before coding:
-   - `spec.md` — what to build (functional requirements)
-   - `plan.md` — how to build (architecture, tech decisions)
-   - `data-model.md` — entities and relationships (if applicable)
+1. **Read DEV_SPEC.md** relevant sections before coding:
+   - Chapter 5 — architecture and module design
+   - Chapter 3 — tech stack details
+   - Chapter 4 — testing conventions
    - `references/` — Agent-specific patterns from this skill
 
-2. **Implement** following the plan's architecture and interface contracts
+2. **Implement** following the spec's architecture and interface contracts
 
-3. **Write tests** alongside code per the plan's testing strategy
+3. **Write tests** alongside code per the spec's testing strategy
 
 4. **Smoke test** after each module
 
-5. **Mark task complete** in `tasks.md`: `- [ ]` → `- [x]`
+5. **Mark task complete** in `DEV_SPEC.md`: `[ ]` → `[x]`
 
 **During build**:
-- Show progress after each module: "✅ T001 Config 完成 | ⬜ T002 LLM Client | ⬜ T003 Memory | ..."
+- Show progress after each module: "✅ A1 Config 完成 | ⬜ A2 LLM Client | ⬜ A3 Memory | ..."
 - Read `references/agent-architecture.md` for robustness checklist after completing core modules
-- Only ask user to confirm if implementation needs to diverge from plan
-- If divergence is needed: update spec/plan first, then implement
+- Only ask user to confirm if implementation needs to diverge from spec
+- If divergence is needed: update DEV_SPEC.md first, then implement
 
 ---
 
 ### Stage 5: Polish (收尾交付)
 
-Goal: Test, document, deliver, and set up for future expansion.
+Goal: Test, document, deliver.
 
 **Step 1: Automated Testing**
 Run tests automatically. Fix failures (up to 3 rounds).
@@ -337,29 +277,7 @@ Generate all supporting files:
 - `.env.example` — Template for API keys
 - `.gitignore` — Standard ignores for the language
 
-**Step 3: Initialize openspec for future expansion**
-
-> Skip this step if openspec was marked unavailable in Stage 0 Preflight. Inform user that expansion workflow can be set up later after installing openspec.
-
-Run in the project directory:
-```bash
-openspec init --tools claude
-```
-
-This creates the `openspec/` directory and registers `/opsx:*` slash commands.
-
-Then **bridge the baseline**: create an initial spec in `openspec/specs/` that summarizes the current project state from speckit's artifacts:
-
-1. Read `.specify/<feature>/spec.md` — extract core requirements
-2. Read `.specify/<feature>/plan.md` — extract architecture decisions
-3. Write a baseline spec to `openspec/specs/core/spec.md` with:
-   - Current capabilities (tools, features)
-   - Architecture overview (modules, interfaces)
-   - Technical constraints (from constitution)
-
-This ensures future `/opsx:propose` commands have full context of what already exists.
-
-**Step 4: Delivery Summary**
+**Step 3: Delivery Summary**
 Show final card:
 
 ```
@@ -370,64 +288,22 @@ Show final card:
 ║  文件数量：<N> 个文件                            ║
 ║  测试结果：<pass/fail summary>                   ║
 ║                                                  ║
-║  规范体系：                                       ║
-║    .specify/  — speckit 初始规范 ✅              ║
-║    openspec/  — openspec 扩展基线 ✅             ║
+║  规范文件：                                       ║
+║    DEV_SPEC.md — 完整项目规范 ✅                 ║
 ║                                                  ║
 ║  启动方式：                                       ║
 ║    <run command>                                 ║
 ║                                                  ║
-║  后续扩展：                                       ║
-║    /opsx:propose "新功能描述"                     ║
-║    /opsx:apply                                   ║
-║    /opsx:archive                                 ║
+║  后续迭代：                                       ║
+║    更新 DEV_SPEC.md → auto code                  ║
 ╚══════════════════════════════════════════════════╝
 ```
 
-**Step 5: Iteration Offer**
+**Step 4: Iteration Offer**
 Ask: "需要优化吗？可以：添加工具 / 修复bug / 优化prompt / 优化界面 / 其他"
 
-- If yes → use `/opsx:propose` to create a change proposal, then `/opsx:apply` to implement
+- If yes → update DEV_SPEC.md with new tasks, then use auto-coder to implement
 - If no → done
-
----
-
-## Extension Workflow: OpenSpec (1→N)
-
-After initial delivery, all feature additions and modifications go through openspec:
-
-### When to use
-
-- Adding new tools/capabilities to existing agent
-- Changing existing behavior
-- Refactoring modules
-- Any post-v1 changes
-
-### Workflow
-
-```bash
-# 1. Propose a change
-/opsx:propose "add-web-search-tool"
-# → Creates openspec/changes/add-web-search-tool/ with proposal.md, design.md, tasks.md
-
-# 2. Implement the change
-/opsx:apply
-# → Reads tasks.md, implements each task, marks complete
-
-# 3. Archive when done
-/opsx:archive
-# → Moves to openspec/changes/archive/YYYY-MM-DD-add-web-search-tool/
-# → Syncs delta specs to openspec/specs/
-```
-
-### Agent-specific guidance for openspec changes
-
-When `/opsx:propose` runs, ensure the proposal considers:
-- Impact on the Agent Loop (does the new tool need special handling?)
-- Impact on memory (does context window management need updating?)
-- Impact on system prompt (does the LLM need to know about new capabilities?)
-- New tool must follow the interface standard in `references/interface-spec.md`
-- New tests must follow existing testing patterns
 
 ---
 
@@ -446,10 +322,10 @@ When `/opsx:propose` runs, ensure the proposal considers:
 - Every confirmation point gives the user control without overwhelming them
 
 ### Spec Discipline
-- **Spec is law**: No code without spec backing. If it's not in the speckit artifacts, it doesn't get built
-- **Spec before code**: Always update spec/plan first, then implement
-- **Traceability**: Every module, every test, every config should trace to spec.md or plan.md
-- **Living specs**: Use openspec to evolve specifications incrementally after v1
+- **Spec is law**: No code without spec backing. If it's not in DEV_SPEC.md, it doesn't get built
+- **Spec before code**: Always update DEV_SPEC.md first, then implement
+- **Traceability**: Every module, every test, every config should trace to DEV_SPEC.md
+- **Living spec**: Update DEV_SPEC.md as the project evolves, keep it as the single source of truth
 
 ### Code Quality
 - Type hints (Python) or TypeScript strict mode
