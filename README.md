@@ -29,6 +29,7 @@
 | [**theme-factory**](https://github.com/kennysli1/My-AI-Skills/blob/main/skills/theme-factory/SKILL.md) | 为幻灯片/文档/落地页等**套用主题**：10 套预设主题（颜色+字体），或按需求生成新主题，再应用到已有产物。 |
 | [**web-artifacts-builder**](https://github.com/kennysli1/My-AI-Skills/blob/main/skills/web-artifacts-builder/SKILL.md) | 用 **React + TypeScript + Vite + Tailwind + shadcn/ui** 做复杂前端产物：init → 开发 → bundle 成单 HTML，便于在对话里以 artifact 展示。 |
 | [**webapp-testing**](https://github.com/kennysli1/My-AI-Skills/blob/main/skills/webapp-testing/SKILL.md) | 用 **Playwright** 测本地 Web 应用：起服、截图、查 DOM、写自动化脚本。提供 with_server 等脚本，支持单/多服务。 |
+| [**westock-data**](https://github.com/kennysli1/My-AI-Skills/blob/main/skills/westock-data/SKILL.md) | **A股/港股/美股数据查询**：实时行情、K线/分时、三大财务报表（跨市场批量对比）、资金流向、技术指标、筹码分析、机构评级/研报、新闻公告、股东结构、ETF 基金数据，以及大盘指数、行业板块、热搜、投资日历等市场数据。 |
 | [**xlsx**](https://github.com/kennysli1/My-AI-Skills/blob/main/skills/xlsx/SKILL.md) | **Excel/表格**：用 pandas 分析、openpyxl 做公式与格式，脚本重算公式并查错。含金融模型配色与数字格式规范。 |
 
 ---
@@ -113,6 +114,7 @@ My-AI-Skills/
     ├── theme-factory/         # 主题工厂
     ├── web-artifacts-builder/ # 前端产物
     ├── webapp-testing/        # Web 测试
+    ├── westock-data/          # 股票数据查询
     └── xlsx/                  # Excel 表格
 ```
 

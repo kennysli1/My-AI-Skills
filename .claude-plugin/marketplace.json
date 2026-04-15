@@ -50,6 +50,15 @@
       "skills": [
         "./skills/claude-api"
       ]
+    },
+    {
+      "name": "westock-data",
+      "description": "Query detailed stock data for A-shares, HK stocks, and US stocks including real-time quotes, K-lines, financial statements, fund flows, technical indicators, institutional ratings, and market overview data",
+      "source": "./",
+      "strict": false,
+      "skills": [
+        "./skills/westock-data"
+      ]
     }
   ]
 }
